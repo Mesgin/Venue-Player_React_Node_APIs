@@ -1,0 +1,10 @@
+.detail {
+    font-family: 'Roboto Condensed';
+    padding: 10px;
+    background-color: rgb(46, 49, 49);
+    color: rgba(255, 255, 255, 0.894);
+}
+.detail p {
+    padding:20px;
+    font-size: 1.2rem;
+}
