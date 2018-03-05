@@ -74,8 +74,8 @@ class App extends Component {
     this.setState({
       currentSong: this.state.currentSong + 1,
     }, () => {
-      this.player.load()
-      this.state.isPlaying ? this.player.play() : this.player.pause()
+      this.player.load();
+      (this.state.isPlaying) ? this.player.play() : this.player.pause()
     })
   }
 
@@ -91,7 +91,7 @@ class App extends Component {
   listPlay = (id) => {
     this.player.currentTime = 0
     this.setState({
-      currentSong: id,
+      currentSong: Number(id),
       isPlaying: true
     }, () => this.player.play())
   }
@@ -133,15 +133,11 @@ class App extends Component {
 
         <Route exact path="/" render={() => <SongsList 
           songs={this.state.songs} 
-          currentSong={this.state.currentSong} 
           listPlay={this.listPlay} />} 
-          isPlaying={this.state.isPlaying}
         />
         <Route path='/:songId' render={(props) => <SongDetails
           songs={this.state.songs}
           listPlay={this.listPlay}
-          isPlaying={this.state.isPlaying}
-          currentSong={this.state.currentSong}
           {...props} />}
         />
       </div >
