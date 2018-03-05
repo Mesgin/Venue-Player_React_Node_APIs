@@ -89,11 +89,16 @@ class App extends Component {
   }
 
   listPlay = (id) => {
-    this.player.currentTime = 0
-    this.setState({
-      currentSong: Number(id),
-      isPlaying: true
-    }, () => this.player.play())
+    let num = Number(id)
+    if(this.state.currentSong!==num){
+      this.player.currentTime = 0
+      this.setState({
+        currentSong: num,
+        isPlaying: true
+      }, () => this.player.play())
+    } else {
+      this.play(num)
+    } 
   }
 
   render() {
@@ -119,25 +124,41 @@ class App extends Component {
             </button>
           </div>
           <div className="col-3 col-sm-3 col-md-3 col-lg-3">
-            <button className="btn btn-danger btn-width" type="button" onClick={this.stop}>
-              <i className="fa fa-stop"></i>
+            <button 
+            className="btn btn-danger btn-width" 
+            type="button" 
+            onClick={this.stop}>
+              <i className="fa fa-stop" ></i>
             </button>
           </div>
           <div className="col-3 col-sm-3 col-md-3 col-lg-3">
-            <button className="btn btn-danger btn-width" type="button" disabled={(this.state.currentSong === this.state.songs.length - 1)} onClick={this.next}>
+            <button 
+            className="btn btn-danger btn-width" 
+            type="button" 
+            disabled={(this.state.currentSong === this.state.songs.length - 1)} 
+            onClick={this.next}>
               <i className="fa fa-step-forward"></i>
             </button>
           </div>
         </div>
-        <audio onLoadedData={this.duration} onTimeUpdate={this.timeUpdate} src={this.state.songs[this.state.currentSong].source} ref={(self) => { this.player = self }} />
+        <audio 
+        onLoadedData={this.duration} 
+        onTimeUpdate={this.timeUpdate} 
+        src={this.state.songs[this.state.currentSong].source} 
+        ref={(self) => { this.player = self }} 
+        />
 
         <Route exact path="/" render={() => <SongsList 
           songs={this.state.songs} 
+          isPlaying={this.state.isPlaying}
+          currentSong={this.state.currentSong}
           listPlay={this.listPlay} />} 
         />
         <Route path='/:songId' render={(props) => <SongDetails
           songs={this.state.songs}
           listPlay={this.listPlay}
+          isPlaying={this.state.isPlaying}
+          currentSong={this.state.currentSong}
           {...props} />}
         />
       </div >

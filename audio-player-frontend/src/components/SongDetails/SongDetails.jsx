@@ -4,16 +4,17 @@ import './SongDetails.css'
 
 class SongDetails extends Component {
     render() {
-        let index = this.props.match.params.songId
+        let index = Number(this.props.match.params.songId)
+        console.log(this.props.currentSong ,index)
         return (
             <div className="detail">
                 <div>
                     <h1>{this.props.songs[index].title}</h1>
                     <button
                         type="button"
-                        className="btn btn-success"
+                        className={(this.props.isPlaying && this.props.currentSong === index) ? "btn btn-warning" : "btn btn-success"}
                         onClick={() => { this.props.listPlay(index) }}>
-                        <i className="fa fa-play">
+                        <i className={(this.props.isPlaying && this.props.currentSong === index) ? "fa fa-pause" : "fa fa-play"}>
                         </i>
                     </button>
                 </div>
