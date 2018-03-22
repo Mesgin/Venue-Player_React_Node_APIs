@@ -18,7 +18,7 @@ class SongsList extends Component {
                     <i className={(this.props.isPlaying && this.props.currentSong === song.id) ? "fa fa-pause" : "fa fa-play"}>
                     </i>
                 </button>
-                <Link to={`/${song.id}`}>{song.title}</Link>
+                <Link to={`/${song.id}`}>{song.artist} - {song.title}</Link>
             </li>
             )
         })

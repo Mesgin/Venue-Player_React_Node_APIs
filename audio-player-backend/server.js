@@ -1,18 +1,43 @@
 const express = require('express')
 const app = express()
+const fs = require('fs')
+const mm = require('musicmetadata')
+const request = require('request')
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json())
+
+// create a new parser from a node ReadStream 
+// const parser = mm(fs.createReadStream('../audio-player-frontend/public/olympian.mp3'), function (err, metadata) {
+//     if (err) throw err;
+//     console.log(metadata);
+// });
+
+//create a new parser from a node ReadStream
+// const parser = new mm(fs.createReadStream('./olympian.mp3'))
+
+//listen for the metadata event
+// parser.on('metadata', function (result) {
+//     console.log(result);
+// });
 
 
-function Song(source, title, description, id) {
+function Song(source, title, artist, description, img, id) {
     this.source = source
     this.title = title
+    this.artist = artist
     this.description = description
+    this.img = img
     this.id = id
 }
 
 const songs = [
-    new Song('/upstep.mp3', 'Upstep', 'Brutal beat and bulky bass are the foundation for a dubstep frenzy featuring synths, wailing guitar and jitters and glitches. Tempo: 140bpm', 0),
-    new Song('/olympian.mp3', 'Olympian', 'An energetic, vibrant track featuring positive electric guitar licks and modern drums creates useful sports theme. Tempo: 130bpm', 1),
-    new Song('/transmission.mp3', 'Transmission', 'Energetic electronic melody featuring modern drums, snaking bass and explosive electric guitar. Tempo: 120bpm', 2)
+    new Song('/upstep.mp3', 'Under The Sun', 'Bryan Adams', 'Brutal beat and bulky bass are the foundation for a dubstep frenzy featuring synths, wailing guitar and jitters and glitches. Tempo: 140bpm','./bryan-adams.jpg' ,0),
+    new Song('/upstep.mp3', 'Uptown Funk', 'Bruno Mars', 'Brutal beat and bulky bass are the foundation for a dubstep frenzy featuring synths, wailing guitar and jitters and glitches. Tempo: 140bpm', './bruno-mars.jpg', 1),
+    new Song('/olympian.mp3', 'Irreplaceable', 'Beyonce', 'An energetic, vibrant track featuring positive electric guitar licks and modern drums creates useful sports theme. Tempo: 130bpm','./beyonce.png' ,2),
+    new Song('/transmission.mp3', 'Raise Your Glass', 'Pink', 'Energetic electronic melody featuring modern drums, snaking bass and explosive electric guitar. Tempo: 120bpm', './pink.jpeg', 3),
+    new Song('/olympian.mp3', 'Someone Like You', 'Adele', 'An energetic, vibrant track featuring positive electric guitar licks and modern drums creates useful sports theme. Tempo: 130bpm','./adele.jpg' ,4),
+    new Song('/transmission.mp3', 'Dream of You', 'Schiller', 'Energetic electronic melody featuring modern drums, snaking bass and explosive electric guitar. Tempo: 120bpm', './schiller.png', 5)
 ]
 
 app.use((req, res, next) => {
@@ -23,6 +48,16 @@ app.use((req, res, next) => {
 
 app.get('/',(req,res)=>{
     res.json(songs)
+})
+
+app.post('/',(req,res)=>{
+    const {artist} = req.body
+    console.log(req.body.artist)
+    request(`https://rest.bandsintown.com/artists/${artist}/events?app_id=c74a852c1481cfb7e5cda8c42adc7ff0`, (err, response, data) => {
+        const dataObject = JSON.parse(data)
+        if (err) console.log(err)
+        res.json(dataObject)
+    })
 })
 
 app.listen(8080,()=>{
