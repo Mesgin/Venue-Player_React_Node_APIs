@@ -7,21 +7,6 @@ const bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
 
-// create a new parser from a node ReadStream 
-// const parser = mm(fs.createReadStream('../audio-player-frontend/public/olympian.mp3'), function (err, metadata) {
-//     if (err) throw err;
-//     console.log(metadata);
-// });
-
-//create a new parser from a node ReadStream
-// const parser = new mm(fs.createReadStream('./olympian.mp3'))
-
-//listen for the metadata event
-// parser.on('metadata', function (result) {
-//     console.log(result);
-// });
-
-
 function Song(source, title, artist, description, img, id) {
     this.source = source
     this.title = title
@@ -52,7 +37,6 @@ app.get('/',(req,res)=>{
 
 app.post('/',(req,res)=>{
     const {artist} = req.body
-    console.log(req.body.artist)
     request(`https://rest.bandsintown.com/artists/${artist}/events?app_id=c74a852c1481cfb7e5cda8c42adc7ff0`, (err, response, data) => {
         const dataObject = JSON.parse(data)
         if (err) console.log(err)
