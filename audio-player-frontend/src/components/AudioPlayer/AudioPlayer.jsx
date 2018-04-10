@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import SongsList from '../SongsList/SongsList.jsx'
-// import SongDetails from '../SongDetails/SongDetails.jsx'
 import AudioSpectrum from 'react-audio-spectrum'
-// import axios from 'axios'
-// import { Route } from 'react-router-dom'
 
 class AudioPlayer extends Component {
     constructor() {
@@ -41,9 +38,9 @@ class AudioPlayer extends Component {
     }
 
     duration = () => {
-        let duration = Math.floor(this.player.duration);
-        let minutes = Math.floor(duration / 60);
-        let seconds = duration % 60;
+        let duration = Math.floor(this.player.duration)
+        let minutes = Math.floor(duration / 60)
+        let seconds = duration % 60
 
         this.setState({
             duration: minutes + ':' + seconds
@@ -98,19 +95,10 @@ class AudioPlayer extends Component {
         return (
             <div>
                 <div className="row" id="audio-display">
-                    <div className="col-md-3"><img id="cover" src={this.props.songs[this.state.currentSong].img} alt="artist-img" /></div>
-                    <div className="col-md-9">
-
-                        {/* <div className="timeline">
-                        <div className="current-time">{this.state.currentTime}</div>
-                    <div className="player-progress-container" onClick={this.setProgress} ref={(self) => { this.timeline = self }}>
-                            <span
-                        className="player-progress-value"
-                                style={timeline} ref={(self) => { this.handle = self }}>
-                            </span>
+                    <div className="col-md-3">
+                        <img id="cover" src={this.props.songs[this.state.currentSong].img} alt="artist-img" />
                     </div>
-                    <div className="total-time">{this.state.duration}</div>
-                    </div > */}
+                    <div className="col-md-9">
                         <AudioSpectrum
                             id="audio-canvas"
                             height={100}
@@ -127,13 +115,17 @@ class AudioPlayer extends Component {
                             ]}
                             gap={4}
                         />
-                        <p className="lead">{this.props.songs[this.state.currentSong].artist} - {this.props.songs[this.state.currentSong].title} {this.state.currentTime}/{this.state.duration}</p>
-
+                        <p className="lead">
+                        {this.props.songs[this.state.currentSong].artist} - {this.props.songs[this.state.currentSong].title} {this.state.currentTime}/{this.state.duration}
+                        </p>
                         <div id="controls">
-                            <button className="btn btn-danger btn-width" type="button" disabled={(this.state.currentSong === 0)} onClick={this.previous}>
+                            <button 
+                            className="btn btn-danger btn-width" 
+                            type="button" 
+                            disabled={(this.state.currentSong === 0)} 
+                            onClick={this.previous}>
                                 <i className="fa fa-step-backward"></i>
                             </button>
-
                             <button
                                 className={(this.state.isPlaying) ? "btn btn-warning btn-width" : "btn btn-success btn-width"}
                                 type="button"
@@ -141,14 +133,12 @@ class AudioPlayer extends Component {
                                 }>
                                 <i className={(this.state.isPlaying) ? "fa fa-pause" : "fa fa-play"}></i>
                             </button>
-
                             <button
                                 className="btn btn-danger btn-width"
                                 type="button"
                                 onClick={this.stop}>
                                 <i className="fa fa-stop" ></i>
                             </button>
-
                             <button
                                 className="btn btn-danger btn-width"
                                 type="button"
@@ -168,21 +158,13 @@ class AudioPlayer extends Component {
                     ref={(self) => { this.player = self }}
                 />
                 <div className="row">
-                    <div className="col-12 col-sm-6 col-md-12 col-lg-12" id="song-list">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-12" id="song-list">
                         <SongsList
                             songs={this.props.songs}
                             isPlaying={this.state.isPlaying}
                             currentSong={this.state.currentSong}
                             listPlay={this.listPlay} />
                     </div>
-                    {/* <div className="col-12 col-sm-6 col-md-6 col-lg-6" id="song-list">
-                    <SongDetails
-                        songs={this.props.songs}
-                        listPlay={this.listPlay}
-                        isPlaying={this.state.isPlaying}
-                        currentSong={this.state.currentSong}
-                    />
-                </div> */}
                 </div>
             </div >
         )

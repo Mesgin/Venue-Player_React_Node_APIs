@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
-// import { Route } from 'react-router-dom'
-// // import SongsList from '../SongsList/SongsList.jsx'
-// // import SongDetails from '../SongDetails/SongDetails.jsx'
 import axios from 'axios'
 import './App.css'
 import MapContainer from '../MapContainer'
 import AudioPlayer from '../AudioPlayer/AudioPlayer.jsx'
-// import Map from '../Map'
 
 class App extends Component {
   constructor() {
@@ -38,8 +34,6 @@ class App extends Component {
       })
   }
 
- 
-
   render() {
     return (
       <div className="container text-center">
@@ -52,19 +46,7 @@ class App extends Component {
             <MapContainer venues={this.state.venues} dateTime={this.state.dateTime}/>
           </div>
         </div>
-          {/* <div className="row">
-          <div className="col-12 col-sm-12 col-md-12 col-lg-12" id="map">
-            <Map
-            
-              isMarkerShown 
-              venues={this.state.venues}
-              containerElement={<div style={{height:100+'%'}}/>}
-              mapElement={<div style={{ height: 100 + '%' }} />}
-            /> */}
-{/*           
-            </div>
-            </div> */}
-        </div>
+      </div>
  
     )
   }

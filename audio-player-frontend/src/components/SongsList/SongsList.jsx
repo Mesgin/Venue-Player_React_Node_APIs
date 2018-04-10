@@ -9,7 +9,8 @@ const divStyle = {
 class SongsList extends Component {
     render() {
         let songsList = this.props.songs.map((song, i) => {
-            return (<li key={i} className="list-group-item d-flex" >
+            return (
+            <li key={i} className="list-group-item d-flex" >
                 <button
                     style={divStyle}
                     className={(this.props.isPlaying && this.props.currentSong === song.id) ? "btn btn-warning" : "btn btn-success"}

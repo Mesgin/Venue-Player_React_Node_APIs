@@ -3,15 +3,15 @@ import { InfoWindow, Map, Marker, GoogleApiWrapper } from 'google-maps-react'
 
 export class MapContainer extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
         }
 
-        this.onMarkerClick = this.onMarkerClick.bind(this);
-        this.onMapClicked = this.onMapClicked.bind(this);
+        this.onMarkerClick = this.onMarkerClick.bind(this)
+        this.onMapClicked = this.onMapClicked.bind(this)
     }
 
     onMarkerClick= (props, marker, e)=> {
@@ -32,6 +32,7 @@ export class MapContainer extends Component {
     }
 
     render() {
+        
         let venuesJSX = this.props.venues.map((venue,i)=>{
             return  <Marker 
                         key={i}
@@ -44,27 +45,25 @@ export class MapContainer extends Component {
 
         return (
             <div className="container">
-            <div className="row">
-                <Map
-                    onClick={this.onMapClicked}
-                    google={this.props.google}
-                    initialCenter={{
-                        lat: 49.2193,
-                        lng: -122.5984
-                    }}
-                    zoom={2}
+                <div className="row">
+                    <Map
+                        onClick={this.onMapClicked}
+                        google={this.props.google}
+                        initialCenter={{
+                            lat: 49.2193,
+                            lng: -122.5984
+                        }}
+                        zoom={2}
                     >
-
-                    {venuesJSX}
-                    
-                    <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}>
-                        <div>
-                            <h6>{this.state.selectedPlace.name}</h6>
-                        </div>
-                    </InfoWindow>                    
-                </Map>
+                        {venuesJSX}                       
+                        <InfoWindow
+                            marker={this.state.activeMarker}
+                            visible={this.state.showingInfoWindow}>
+                            <div>
+                                <h6>{this.state.selectedPlace.name}</h6>
+                            </div>
+                        </InfoWindow>                    
+                    </Map>
                 </div>
             </div>
         )
