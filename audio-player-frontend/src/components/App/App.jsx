@@ -46,8 +46,7 @@ class App extends Component {
             <MapContainer venues={this.state.venues} dateTime={this.state.dateTime}/>
           </div>
         </div>
-      </div>
- 
+      </div> 
     )
   }
 }
