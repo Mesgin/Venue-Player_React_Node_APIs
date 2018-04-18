@@ -82,7 +82,7 @@ body {
     height:25px;
 }
 h6 {
-    color:rgb(3, 101, 103);
+    color:rgba(3, 101, 103, 0.945);
     padding-right: 10px;
     padding-top: 10px;
 }
